@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :forbid_not_login_user, only: [:index, :show, :edit, :update, :destoy]
   
   def index
     @users = User.all
@@ -20,18 +22,15 @@ class UsersController < ApplicationController
   end 
   
   def show
-    @user = User.find(params[:id])
   end 
   
   def edit
-    @user = User.find(params[:id])
   end 
   
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = "ユーザー情報を編集しました"
-      redirect_to(users_path)
+      redirect_to(user_path)
     else
       flash[:danger] = "ユーザー情報の編集に失敗しました"
       render(:edit)
@@ -39,10 +38,9 @@ class UsersController < ApplicationController
   end 
   
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     flash[:success] = "ユーザー情報を削除しました"
-    redirect_to(users_path)
+    redirect_to(signup_path)
   end 
 
  private
@@ -50,4 +48,8 @@ class UsersController < ApplicationController
  def user_params
    params.require(:user).permit(:name, :email, :password, :password_confirmation)
  end
+ 
+ def set_user
+   @user = User.find(params[:id])
+ end 
 end
