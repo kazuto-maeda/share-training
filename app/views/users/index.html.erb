@@ -1,0 +1,8 @@
+<h3>ユーザー一覧</h3>
+<div>
+  <% @users.each do |user| %>
+  <div>
+    <%=link_to(user.name, user) %>
+  </div>
+  <% end %>
+</div>
