@@ -8,6 +8,12 @@ Rails.application.routes.draw do
   
   
   get "signup" => "users#new"
-  get "signout" => "users#destroy"
-  resources :users
+  delete "signout" => "users#destroy"
+  resources :users do
+    member do
+      get :followings
+      get :followers
+    end
+  end
+  resources :relationships, only: [:create, :destroy]
 end

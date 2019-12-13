@@ -8,11 +8,12 @@
       <ul class = "navbar-nav">
         <% if logged_in? %>
           <li class = "nav-item"><%= link_to("ユーザー一覧", users_path , class: "nav-link") %></li>
-          <li class = "nav-item"><%= link_to("ログアウト", logout_path, method: :delete, data: { confirm: "本当にログアウトしますか？" }, class: "nav-link")%></li>
-          <li class = "nav-item"><%= link_to(@current_user.name, @current_user, class: "nav-link")%></li>
+          <li class = "nav-item"><%= link_to("ログアウト", logout_path, method: :delete, data: { confirm: "本当にログアウトしますか？" }, class: "nav-link") %></li>
+          <li class = "nav-item"><%= link_to("退会", signout_path, method: :delete, data: { confirm: "本当にアカウントを削除しますか？"}, class: "nav-link") %>
+          <li class = "nav-item"><%= link_to(@current_user.name, @current_user, class: "nav-link") %></li>
         <% else %>
           <li class = "nav-item"><%= link_to("新規登録", signup_path , class: "nav-link") %></li>
-          <li class = "nav-item"><%= link_to("ログイン", login_path, class: "nav-link")%></li>
+          <li class = "nav-item"><%= link_to("ログイン", login_path, class: "nav-link") %></li>
         <% end %>
       </ul>
     </div>

@@ -33,3 +33,11 @@
     </a>
   </li>
 </ul>
+
+<div>
+  <% @followers.each do |user| %>
+  <div>
+    <%=link_to(user.name, user) %>
+  </div>
+  <% end %>
+</div>

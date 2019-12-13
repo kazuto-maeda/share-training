@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :forbid_not_login_user, only: [:index, :show, :edit, :update, :destoy]
+  before_action :set_user, only: [:show, :edit, :update, :followings, :followers]
+  before_action :forbid_not_login_user, only: [:index, :show, :edit, :update, :destoy, :followings, :followers]
+  before_action :correct_user, only: [:edit, :update]
   
   def index
     @users = User.all
@@ -14,6 +15,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = "ユーザーの登録が完了しました"
+      session[:user_id] = @user.id
       redirect_to(@user)
     else
       flash[:danger] = "ユーザーの登録に失敗しました"
@@ -22,6 +24,7 @@ class UsersController < ApplicationController
   end 
   
   def show
+    count(@user)
   end 
   
   def edit
@@ -38,11 +41,21 @@ class UsersController < ApplicationController
   end 
   
   def destroy
-    @user.destroy
+    current_user.destroy
     flash[:success] = "ユーザー情報を削除しました"
     redirect_to(signup_path)
   end 
-
+  
+  def followings
+    @followings = @user.followings.all
+    count(@user)
+  end 
+  
+  def followers
+    @followers = @user.followers.all
+    count(@user)
+  end 
+  
  private
  
  def user_params
@@ -52,4 +65,11 @@ class UsersController < ApplicationController
  def set_user
    @user = User.find(params[:id])
  end 
+ 
+ def correct_user
+   if @user != @current_user
+     flash[:danger] = "権限がありません"
+     redirect_to(users_url)
+   end
+ end
 end
