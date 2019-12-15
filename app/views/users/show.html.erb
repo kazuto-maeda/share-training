@@ -33,3 +33,9 @@
     </a>
   </li>
 </ul>
+
+<% @tweets.each do |tweet| %>
+  <div>
+    <%= link_to(tweet.content, tweet_path(tweet))%>
+  </div>
+<% end %>

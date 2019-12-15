@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   end 
   
   def show
+    @tweets = @user.tweets.all
     count(@user)
   end 
   

@@ -34,10 +34,8 @@
   </li>
 </ul>
 
-<div>
   <% @followings.each do |user| %>
   <div>
     <%=link_to(user.name, user) %>
   </div>
   <% end %>
-</div>

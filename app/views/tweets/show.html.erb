@@ -1,0 +1,32 @@
+<%= @tweet.content %>
+
+<% if @tweet.user == current_user %>
+  <%= link_to("編集", edit_tweet_path)%>
+  <%= link_to("削除", @tweet, method: :delete, data: { confirm: "本当に削除してよろしいですか？"})%>
+<% end %>
+
+<% if @trainings.any? %>
+  <table class = "table table-borderd">
+    <thead>
+      <tr>
+        <th>メニュー</th>
+        <th>重量</th>
+        <th>回数</th>
+        <th>セット</th>
+      </tr>
+    </thead>
+    <% @trainings.each do |training| %>
+      <tbody>
+        <tr>
+          <td><%= training.menu %></td>
+          <td><%= training.weight %></td>
+          <td><%= training.count %></td>
+          <td><%= training.set %></td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+<% end %>
+  <div>
+    <%= image_tag @tweet.image.url if @tweet.image? %>
+  </div>
