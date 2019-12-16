@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     password = params[:session][:password]
     if login(email, password)
       flash[:success] = "ログインしました"
-      redirect_to(root_url)
+      redirect_to(tweets_path)
     else
       flash[:danger] = "ログインに失敗しました"
       @error_message = "メールアドレスかパスワードが間違っています"

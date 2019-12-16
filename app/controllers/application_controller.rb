@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   def forbid_login_user
     if logged_in?
       flash[:danger] = "すでにログインしています"
-     redirect_to(root_url)
+     redirect_to(tweets_path)
     end 
   end 
   

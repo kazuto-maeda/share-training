@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :followings, :followers]
-  before_action :forbid_not_login_user, only: [:index, :show, :edit, :update, :destoy, :followings, :followers]
-  before_action :correct_user, only: [:edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :followings, :followers, :profile, :edit_profile, :update_profile]
+  before_action :forbid_not_login_user, only: [:index, :show, :edit, :update, :destoy, :followings, :followers, :edit_profile, :update_profile]
+  before_action :correct_user, only: [:edit, :update, :edit_profile, :update_profile]
   
   def index
     @users = User.all
@@ -57,10 +57,30 @@ class UsersController < ApplicationController
     count(@user)
   end 
   
+  def profile
+  end 
+  
+  def edit_profile
+  end 
+  
+  def update_profile
+    if @user.update(profile_params)
+      flash[:success] = "プロフィール情報を編集しました"
+      redirect_to(user_url)
+    else
+      flash[:danger] = "プロフィール情報の編集に失敗しました"
+      render(:edit_profile)
+    end
+  end 
+  
  private
  
  def user_params
    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+ end
+ 
+ def profile_params
+   params.require(:user).permit(:image, :profile, :training_years, :age, :weight, :sex)
  end
  
  def set_user

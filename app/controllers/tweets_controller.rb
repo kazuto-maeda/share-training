@@ -24,7 +24,7 @@ class TweetsController < ApplicationController
     @tweet = current_user.tweets.build(tweet_params)
     if @tweet.save
       flash[:success] = "投稿を作成しました"
-      redirect_to(root_url)
+      redirect_to(tweets_path)
     else
       flash[:danger] = "投稿の作成に失敗しました"
       render(:new)
@@ -38,7 +38,7 @@ class TweetsController < ApplicationController
   def update
     if @tweet.update(tweet_params)
       flash[:success] = "投稿を編集しました"
-      redirect_to(root_url)
+      redirect_to(tweets_path)
     else
       flash[:danger] = "投稿の編集に失敗しました"
       render(:edit)
@@ -48,7 +48,7 @@ class TweetsController < ApplicationController
   def destroy
     @tweet.destroy
     flash[:success] = "投稿を削除しました"
-    redirect_to(root_url)
+    redirect_to(tweets_path)
   end 
   
   private
@@ -64,7 +64,7 @@ class TweetsController < ApplicationController
   def correct_user_to_tweet
     if current_user != @tweet.user
       flash[:danger] = "権限がありません"
-      redirect_to(root_url)
+      redirect_to(tweets_path)
     end
   end
 end
