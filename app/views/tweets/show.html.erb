@@ -3,6 +3,8 @@
 <% if @tweet.user == current_user %>
   <%= link_to("編集", edit_tweet_path)%>
   <%= link_to("削除", @tweet, method: :delete, data: { confirm: "本当に削除してよろしいですか？"})%>
+<% else %>
+  <%= render("favorites/favorite_button", tweet: @tweet )%>
 <% end %>
 
 <% if @trainings.any? %>

@@ -29,7 +29,8 @@
         <%= f.label :password_confirmation, "もう1度パスワードを入力して下さい" %>
         <%= f.password_field :password_confirmation, class: "form-control" %>
       </div>
-      <%= f.submit "新規登録"%>
+      <%= f.submit "新規登録",  class: "mt-4 btn btn-primary btn-block" %>
     <% end %>
+    <p class = "text-center">アカウントをお持ちの方は<%= link_to("こちら", login_path)%></p>
   </div>
 </div>

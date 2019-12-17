@@ -7,5 +7,7 @@ class Tweet < ApplicationRecord
   has_many :trainings, dependent: :destroy
   accepts_nested_attributes_for :trainings, allow_destroy: true
   
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_users, through: :favorites, source: :user
 
 end
