@@ -1,7 +1,7 @@
 <%= @tweet.content %>
 
 <% if @tweet.user == current_user %>
-  <%= link_to("編集", edit_tweet_path)%>
+  <%= link_to("編集", edit_tweet_path(@tweet))%>
   <%= link_to("削除", @tweet, method: :delete, data: { confirm: "本当に削除してよろしいですか？"})%>
 <% else %>
   <%= render("favorites/favorite_button", tweet: @tweet )%>
@@ -32,3 +32,32 @@
   <div>
     <%= image_tag @tweet.image.url if @tweet.image? %>
   </div>
+
+    <% if @comment.errors.any? %>
+      <div id = "error-expranation" class = "alert alert-warning">
+        <ul class = "mb-0">
+          <% @comment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+<%= form_with(model: @comment, local: true) do |f| %>
+<div class = "form-group">
+  <%= hidden_field_tag :tweet_id, @tweet.id %>
+  <%= f.label :content, "コメント" %>
+  <%= f.text_field :content, class: "form-control" %>
+  <%= f.submit "コメント" %>
+</div>
+<% end %>
+<div>
+  <% @comments.each do |comment| %>
+    <div>
+      <%= comment.content %>
+      <% if comment.user_id == current_user.id %>
+      <%= link_to("削除",comment_path(comment), method: :delete, data: { confirm: "本当に削除してよろしいですか？"})%>
+      <% end %>
+    </div>
+  <% end %>
+</div>

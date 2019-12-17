@@ -13,6 +13,8 @@ class TweetsController < ApplicationController
   
   def show
     @trainings = @tweet.trainings.all
+    @comment = current_user.comments.build
+    @comments = @tweet.comments.all
   end 
   
   def new

@@ -17,6 +17,9 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :favorite_tweets, through: :favorites, source: :tweet
   
+  has_many :comments, dependent: :destroy
+  has_many :comment_tweets, through: :comments, source: :tweet
+  
   def follow(other_user)
     if self != other_user
       self.relationships.find_or_create_by(follow_id: other_user.id)
