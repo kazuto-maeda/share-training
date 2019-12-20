@@ -1,0 +1,13 @@
+
+<ul class = "nav nav-tabs nav-justified mb-3 ">
+  <li class = "nav-item">
+    <a href = "<%= tweets_path %>" class = "nav-link <%= "active" if current_page?(tweets_path)%>">
+      新着ツイート
+    </a>
+  </li>
+  <li class = "nav-item">
+    <a href = "<%= followings_tweets_path%>" class = "nav-link <%= "active" if current_page?(followings_tweets_path)%>">
+      フォロー
+    </a>
+  </li>
+</ul>

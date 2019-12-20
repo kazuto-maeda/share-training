@@ -1,0 +1,43 @@
+<div class = "row">
+  <% tweets.each do |tweet| %>
+    <div class = "col-sm-4 mb-3">
+      <div class = "card shadow-sm">
+        <div class = "card-header">
+          <%= image_tag tweet.user.image.index_user.url, class: "rounded-circle" if tweet.user.image? %>
+          <%= link_to(tweet.user.name, user_path(tweet.user))%>
+        </div>
+        <div class = "card-body">
+          <div class = "tweet-content">
+            <%= tweet.content.truncate(40) %>
+            <div class = "text-right">
+              <%= link_to("詳細", tweet,class: "mr-o")%>
+            </div>
+          </div>
+          <% if tweet.trainings.where.not(menu: [nil, ""]).any? %>
+            <% training = tweet.trainings.first %>
+            <div class = "tweet-training border-top mt-3 pt-3">
+              <%= training.menu %>
+              <%= training.weight %>kg
+              <%= training.count %>回
+              <%= training.set %>セット
+              <% if tweet.trainings.where.not(menu: [nil, ""]).count >= 2 %>
+                <p>...</p>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <div class = "card-footer p-0 pl-2">
+          <div class = "row">
+            <%= render("favorites/favorite_button", tweet: tweet)%>
+            <i class="far fa-comment mt-auto mb-auto"></i>
+            <span class = "ml-2 mt-auto mb-auto"><%= tweet.comments.count %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class = "text-center">
+  <%= paginate tweets %>
+</div>

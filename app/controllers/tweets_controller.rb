@@ -2,19 +2,21 @@ class TweetsController < ApplicationController
   before_action :forbid_not_login_user
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
   before_action :correct_user_to_tweet, only: [:edit, :update, :destroy]
+  before_action :alert_inform
   
   def followings
-    @tweets = current_user.feed_microposts
+    @tweets = current_user.feed_tweets.order(id: :desc).page(params[:page]).per(6)
   end 
   
   def index
-    @tweets = Tweet.all
+    @tweets = Tweet.order(id: :desc).page(params[:page]).per(6)
   end 
   
   def show
-    @trainings = @tweet.trainings.all
+    @user = @tweet.user
+    @trainings = @tweet.trainings.where.not(menu: [nil,""])
     @comment = current_user.comments.build
-    @comments = @tweet.comments.all
+    @comments = @tweet.comments.order(id: :desc)
   end 
   
   def new

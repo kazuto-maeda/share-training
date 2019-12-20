@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_17_005942) do
+ActiveRecord::Schema.define(version: 2019_12_20_063307) do
+
+  create_table "alerts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "favorite_id"
+    t.bigint "relationship_id"
+    t.bigint "comment_id"
+    t.boolean "checked", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "alerted"
+    t.index ["comment_id"], name: "index_alerts_on_comment_id"
+    t.index ["favorite_id"], name: "index_alerts_on_favorite_id"
+    t.index ["relationship_id"], name: "index_alerts_on_relationship_id"
+    t.index ["user_id"], name: "index_alerts_on_user_id"
+  end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "content"
@@ -76,6 +91,10 @@ ActiveRecord::Schema.define(version: 2019_12_17_005942) do
     t.integer "training_years"
   end
 
+  add_foreign_key "alerts", "comments"
+  add_foreign_key "alerts", "favorites"
+  add_foreign_key "alerts", "relationships"
+  add_foreign_key "alerts", "users"
   add_foreign_key "comments", "tweets"
   add_foreign_key "comments", "users"
   add_foreign_key "favorites", "tweets"

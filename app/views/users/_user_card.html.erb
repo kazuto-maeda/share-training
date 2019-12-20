@@ -1,0 +1,83 @@
+<div class = "card mb-5">
+  <div class = "card-header">
+    <div class = "row">
+      <div class = "col-sm-3">
+        <%= image_tag user.image.show_user.url, class: "rounded-circle" if user.image? %><br>
+        <% if current_user == user %>
+          <%= link_to("プロフィール画像の削除", destroy_image_user_path, method: :delete,)%><br>
+        <% end %>
+        <%= user.name %><br>
+      </div>
+      <div class = "offset-sm-3 col-sm-6 row">
+        <div class = "mb-sm-2 col-sm-6">
+          <p>年齢　　　　　　　
+            <% if user.age == nil %>
+              未入力
+            <% else %>
+              <%= user.age %>歳
+            <% end %>
+          </p>
+          <p>トレーニング歴　　
+            <% if user.training_years == nil %>
+              未入力
+            <% else %>
+              <%= user.training_years %>年
+            <% end %>
+          </p>
+        </div>
+        <div class = "col-sm-6">
+          <p>体重　　　　　　　
+            <% if user.weight == nil %>
+              未入力
+            <% else %>
+              <%= user.weight %>kg
+            <% end %>
+          </p>
+          <p>性別　　　　　　　
+            <% if user.sex == nil %>
+              未入力
+            <% else %>
+              <%= user.sex %>
+            <% end %>
+          </p>
+          <% if current_user == user %>
+            <div class = "text-right">
+              <%= link_to("プロフィール編集",edit_profile_user_path(current_user))%>
+            </div>
+          <% end %>
+        </div>
+        <%= render("follow_button", user: user) %>
+      </div>
+    </div>
+  </div>
+  <div class = "card-body">
+    <% if user.profile %>
+      <%= user.profile%>
+    <% else %>
+      <p>まだ自己紹介が書かれていません</p>
+    <% end %>
+  </div>
+</div>
+
+<ul class = "nav nav-tabs nav-justified mb-3">
+  <li class = "nav-item">
+    <a href = "<%= user_path(user)%>" class = "nav-link <%= "active" if current_page?(user_path(user))%>">
+      ツイート一覧
+    </a>
+  </li>
+  <li class = "nav-item">
+    <a href = "<%= followings_user_path(user)%>" class = "nav-link <%= "active" if current_page?(followings_user_path(user))%>">
+      フォロー中<span class = "badge badge-secondary ml-2"><%= @count_followings %></span>
+    </a>
+  </li>
+  <li class = "nav-item">
+    <a href = "<%= followers_user_path(user)%>" class = "nav-link <%= "active" if current_page?(followers_user_path(user))%>">
+      フォロワー<span class = "badge badge-secondary ml-2"><%= @count_followers %></span>
+    </a>
+  </li>
+  <li class = "nav-item">
+    <a href = "<%= likes_user_path(user)%>" class = "nav-link <%= "active" if current_page?(likes_user_path(user))%>">
+      いいねしたツイート<span class = "badge badge-secondary ml-2"><%= @count_favorites %></span>
+    </a>
+  </li>
+</ul>

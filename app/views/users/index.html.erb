@@ -1,8 +1,2 @@
-<h3>ユーザー一覧</h3>
-<div>
-  <% @users.each do |user| %>
-  <div>
-    <%=link_to(user.name, user) %>
-  </div>
-  <% end %>
-</div>
+<h3 class = "offset-sm-2">ユーザー一覧</h3>
+<%= render("users", users: @users)%>

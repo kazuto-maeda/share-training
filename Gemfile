@@ -59,3 +59,5 @@ gem 'jquery-rails'
 gem 'carrierwave'
 gem 'fog-aws'
 gem 'mini_magick'
+
+gem 'pry-byebug', group: :development

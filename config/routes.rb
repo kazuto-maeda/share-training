@@ -14,8 +14,10 @@ Rails.application.routes.draw do
       get :profile
       get :edit_profile
       patch :update_profile
+      delete :destroy_image
       get :followings
       get :followers
+      get :likes
     end
   end
   
@@ -30,4 +32,5 @@ Rails.application.routes.draw do
   resources :favorites, only: [:create, :destroy]
   resources :comments, only: [:index, :create, :destroy]
   
+  resources :alerts, only: [:index]
 end

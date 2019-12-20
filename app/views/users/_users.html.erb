@@ -1,0 +1,26 @@
+<div>
+  <% users.each do |user| %>
+    <div class = "col-sm-8">
+      <div class = "card shadow-sm mb-3">
+        <div class = "card-header ">
+          <div>
+            <%= image_tag user.image.index_user.url, class: "rounded-circle" if user.image? %>
+            <%=link_to(user.name, user) %>
+          </div>
+          <div class = "text-right">
+            <%= render("follow_button", user: user)%>
+          </div>
+        </div>
+        <div class = "card-body">
+          <% if user.profile %>
+            <%= user.profile %>
+          <% else %>
+            <p>自己紹介がまだ書かれていません</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+ <%= paginate users %>

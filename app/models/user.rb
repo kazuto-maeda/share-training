@@ -4,7 +4,7 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
                     uniqueness: { case_sensitive: false }
-  mount_uploader :image, ImageUploader
+  mount_uploader :image, UserImageUploader
   has_secure_password
   
   has_many :tweets, dependent: :destroy
@@ -20,10 +20,16 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :comment_tweets, through: :comments, source: :tweet
   
+  has_many :alerts
+  
   def follow(other_user)
     if self != other_user
       self.relationships.find_or_create_by(follow_id: other_user.id)
     end
+  end
+  
+  def create_alert_follow(relationship)
+    self.alerts.create(relationship_id: relationship.id, alerted: relationship.follow.id)
   end
   
   def unfollow(other_user)
@@ -35,15 +41,17 @@ class User < ApplicationRecord
     self.followings.include?(other_user)
   end
   
-  def feed_microposts
+  def feed_tweets
     Tweet.where(user_id: self.following_ids + [self.id])
   end
   
   def favorite(tweet)
-    if self.id != tweet.user_id
       self.favorites.find_or_create_by(tweet_id: tweet.id)
-    end
   end 
+  
+  def create_alert_favorite(favorite)
+    self.alerts.create(favorite_id: favorite.id, alerted: favorite.tweet.user_id)
+  end
   
   def quit_favorite(tweet)
     favorite = self.favorites.find_by(tweet_id: tweet.id)

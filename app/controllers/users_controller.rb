@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :followings, :followers, :profile, :edit_profile, :update_profile]
-  before_action :forbid_not_login_user, only: [:index, :show, :edit, :update, :destoy, :followings, :followers, :edit_profile, :update_profile]
-  before_action :correct_user, only: [:edit, :update, :edit_profile, :update_profile]
+  before_action :set_user, only: [:show, :edit, :update, :followings, :followers, :likes, :profile, :edit_profile, :update_profile, :destroy_image]
+  before_action :forbid_not_login_user, only: [:index, :show, :edit, :update, :destoy, :followings, :followers, :likes, :edit_profile, :update_profile, :destroy_image]
+  before_action :correct_user, only: [:edit, :update, :edit_profile, :update_profile, :destroy_image]
+  before_action :alert_inform
+  skip_before_action :alert_inform, only: [:new, :crete]
   
   def index
-    @users = User.all
+    @users = User.order(id: :desc).page(params[:page])
   end 
   
   def new
@@ -24,7 +26,7 @@ class UsersController < ApplicationController
   end 
   
   def show
-    @tweets = @user.tweets.all
+    @tweets = @user.tweets.order(id: :desc).page(params[:page]).per(6)
     count(@user)
   end 
   
@@ -47,15 +49,26 @@ class UsersController < ApplicationController
     redirect_to(signup_path)
   end 
   
+  def destroy_image
+    @user.remove_image!
+    @user.save
+    redirect_to(@user)
+  end
+  
   def followings
-    @followings = @user.followings.all
+    @followings = @user.followings.order(id: :desc).page(params[:page])
     count(@user)
   end 
   
   def followers
-    @followers = @user.followers.all
+    @followers = @user.followers.order(id: :desc).page(params[:page])
     count(@user)
   end 
+  
+  def likes
+    @likes = @user.favorite_tweets.order(id: :desc).page(params[:page]).per(6)
+    count(@user)
+  end
   
   def profile
   end 

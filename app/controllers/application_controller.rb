@@ -19,5 +19,11 @@ class ApplicationController < ActionController::Base
   def count(user)
     @count_followings = user.followings.count
     @count_followers = user.followers.count
+    @count_favorites = user.favorite_tweets.count
   end
+  
+  def alert_inform
+    @count_alerts = Alert.where("(alerted = ?) AND (user_id != ?) AND (checked = ?)",current_user.id, current_user, false).count
+  end
+  
 end

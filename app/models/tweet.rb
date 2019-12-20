@@ -2,7 +2,7 @@ class Tweet < ApplicationRecord
   belongs_to :user
   
   validates :content, presence: true
-  mount_uploader :image, ImageUploader
+  mount_uploader :image, TweetImageUploader
   
   has_many :trainings, dependent: :destroy
   accepts_nested_attributes_for :trainings, allow_destroy: true

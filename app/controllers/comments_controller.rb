@@ -8,9 +8,11 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.build(comment_params)
     @comment.tweet_id = params[:tweet_id]
-     @tweet = Tweet.find(@comment.tweet_id)
+    @tweet = Tweet.find(@comment.tweet_id)
+    @user = @tweet.user
     if @comment.save
       flash[:success] = "コメントを投稿しました"
+      current_user.alerts.create(comment_id: @comment.id, alerted: @user.id)
       redirect_to(@tweet)
     else
       flash[:danger] = "コメントの投稿に失敗しました"

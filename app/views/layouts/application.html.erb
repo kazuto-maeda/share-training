@@ -22,10 +22,16 @@
   </head>
 
   <body>
+    <header>
     <%= render("layouts/navbar") %>
+    </header>
     <div class = "container">
       <%= render("layouts/flash_messages")%>
       <%= yield %>
     </div>
+    <fotter>
+      <%= render("layouts/fotter")%>
+    </fotter>
+    
   </body>
 </html>
