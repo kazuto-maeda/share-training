@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2019_12_21_051555) do
     t.bigint "favorite_id"
     t.bigint "relationship_id"
     t.bigint "comment_id"
-    t.integer "checked", default: 0, null: false
+    t.integer "checked", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "alerted"
