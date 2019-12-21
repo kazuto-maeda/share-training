@@ -1,5 +1,24 @@
 
 <h3 class = "text-center">新規登録</h3>
 
-<%= render("form_user", user: @user)%>
+<div class = "row">
+  <div class = "offset-sm-2 col-sm-8">
+    <%= form_with(model: @user, local: true ) do |f| %>
+    
+      <% if @user.errors.any? %>
+        <div id = "error-expranation" class = "alert alert-warning">
+          <ul class = "mb-0">
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= render("form_user", user: @user , f: f)%>
+
+      <%= f.submit "アカウント作成", class: "btn btn-block btn-primary"%>
+    <% end %>
+  </div>
+</div>
 <p class = "text-center mt-3">アカウントをお持ちの方は<%= link_to("こちら", login_path)%>からログインしてください</p>
