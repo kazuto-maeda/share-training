@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_20_063307) do
+ActiveRecord::Schema.define(version: 2019_12_21_051555) do
 
   create_table "alerts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "favorite_id"
     t.bigint "relationship_id"
     t.bigint "comment_id"
-    t.boolean "checked", default: false, null: false
+    t.integer "checked", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "alerted"

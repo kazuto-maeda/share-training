@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   end
   
   def alert_inform
-    @count_alerts = Alert.where("(alerted = ?) AND (user_id != ?) AND (checked = ?)",current_user.id, current_user, false).count
+    @count_alerts = Alert.where("(alerted = ?) AND (user_id != ?) AND (checked = ?)",current_user.id, current_user, 0).count
   end
   
 end
