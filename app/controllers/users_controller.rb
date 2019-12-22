@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :forbid_login_user, only: [:new, :create]
   before_action :set_user, only: [:show, :edit, :update, :followings, :followers, :likes, :profile, :edit_profile, :update_profile, :destroy_image]
   before_action :forbid_not_login_user, only: [:index, :show, :edit, :update, :destoy, :followings, :followers, :likes, :edit_profile, :update_profile, :destroy_image]
   before_action :correct_user, only: [:edit, :update, :edit_profile, :update_profile, :destroy_image]
