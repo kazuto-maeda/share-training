@@ -1,6 +1,4 @@
 class Relationship < ApplicationRecord
   belongs_to :user
   belongs_to :follow, class_name: 'User'
-  
-  has_many :alert, dependent: :destroy
-end
+  end

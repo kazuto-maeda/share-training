@@ -22,8 +22,5 @@ class ApplicationController < ActionController::Base
     @count_favorites = user.favorite_tweets.count
   end
   
-  def alert_inform
-    @count_alerts = Alert.where("(alerted = ?) AND (user_id != ?) AND (checked = ?)",current_user.id, current_user, 0).count
-  end
-  
+
 end

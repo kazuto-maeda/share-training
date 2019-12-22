@@ -8,13 +8,6 @@
       <ul class = "navbar-nav">
         <% if logged_in? %>
           <li class = "nav-item"><%= link_to("新規投稿", new_tweet_path, class: "nav-link")%></li>
-          <li class = "nav-item">
-            <a href = "<%= alerts_path %>" class = "nav-link">通知一覧
-            <% if @count_alerts != 0 %>
-              <span class = "badge badge-danger ml-2"><%= @count_alerts %></span>
-            <% end %>
-            </a>
-          </li>
           <li class = "nav-item dropdown">
             <a href = "#" class = "nav-link dropdown-toggle" data-toggle = "dropdown"><%= @current_user.name %></a>
               <ul class = "dropdown-menu dropdown-menu-right">
