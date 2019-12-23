@@ -12,6 +12,9 @@ class CommentsController < ApplicationController
     @user = @tweet.user
     if @comment.save
       flash[:success] = "コメントを投稿しました"
+      if current_user.id != @tweet.user.id
+        @user.alerts.create(comment_id: @comment.id)
+      end
       redirect_to(@tweet)
     else
       flash[:danger] = "コメントの投稿に失敗しました"

@@ -2,6 +2,7 @@ class TweetsController < ApplicationController
   before_action :forbid_not_login_user
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
   before_action :correct_user_to_tweet, only: [:edit, :update, :destroy]
+  before_action :alert_inform
 
   def followings
     @tweets = current_user.feed_tweets.order(id: :desc).page(params[:page]).per(6)

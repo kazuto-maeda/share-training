@@ -20,9 +20,13 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :comment_tweets, through: :comments, source: :tweet
   
+  has_many :alerts, dependent: :destroy
+  
   def follow(other_user)
     if self != other_user
       self.relationships.find_or_create_by(follow_id: other_user.id)
+      relationship = self.relationships.find_by(follow_id: other_user.id)
+      other_user.alerts.create(relationship_id: relationship.id)
     end
   end
   
@@ -41,6 +45,10 @@ class User < ApplicationRecord
   
   def favorite(tweet)
       self.favorites.find_or_create_by(tweet_id: tweet.id)
+      if self.id != tweet.user.id
+        favorite = self.favorites.find_by(tweet_id: tweet.id)
+        tweet.user.alerts.create(favorite_id: favorite.id)
+      end
   end 
   
   def quit_favorite(tweet)

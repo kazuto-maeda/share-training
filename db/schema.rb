@@ -10,8 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_21_051555) do
+ActiveRecord::Schema.define(version: 2019_12_22_124718) do
 
+  create_table "alerts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "relationship_id"
+    t.bigint "favorite_id"
+    t.bigint "comment_id"
+    t.string "checked", default: "unread"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_alerts_on_comment_id"
+    t.index ["favorite_id"], name: "index_alerts_on_favorite_id"
+    t.index ["relationship_id"], name: "index_alerts_on_relationship_id"
+    t.index ["user_id"], name: "index_alerts_on_user_id"
+  end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "content"

@@ -12,10 +12,10 @@
           </div>
         </div>
         <div class = "card-body">
-          <% if user.profile %>
-            <%= user.profile %>
-          <% else %>
+          <% if user.profile.nil? or user.profile.blank? %>
             <p>自己紹介がまだ書かれていません</p>
+          <% else %>
+            <%= user.profile %>
           <% end %>
         </div>
       </div>
