@@ -13,9 +13,19 @@
         </div>
       <% end %>
 
-      <%= render("form_user", user: @user,f: f)%>
+      <div class = "form-group">
+        <%= f.label :name, "名前" %>
+        <%= f.text_field :name, class: "form-control"%>
+      </div>
+      <div class = "form-group　mb-0">
+        <%= f.label :email, "メールアドレス" %>
+        <%= f.email_field :email, class: "form-control" %>
+      </div>
+      <div class = "text-right">
+        パスワードの変更は「パスワード変更」画面から行ってください
+      </div>
 
-      <%= f.submit "編集", class: "btn btn-block btn-primary"%>
+      <%= f.submit "編集", class: "btn btn-block btn-primary mt-4"%>
     <% end %>
   </div>
 </div>

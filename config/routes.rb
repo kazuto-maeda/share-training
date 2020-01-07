@@ -31,6 +31,6 @@ Rails.application.routes.draw do
   
   resources :favorites, only: [:create, :destroy]
   resources :comments, only: [:index, :create, :destroy]
-  
   resources :alerts, only: [:index]
+  resource :password, only: [:show, :edit, :update]
 end

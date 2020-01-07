@@ -6,6 +6,11 @@ ja:
       user:
         name: 名前
         email: メールアドレス
-        password: パスワード
-  
+        current_password: 現在のパスワード
+        password: 新しいパスワード
+        password_confirmation: パスワードの確認
+    errors:
+      messages:
+        wrong: が違います
+        empty: を入力してください
   
