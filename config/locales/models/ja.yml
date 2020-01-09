@@ -9,8 +9,9 @@ ja:
         current_password: 現在のパスワード
         password: 新しいパスワード
         password_confirmation: パスワードの確認
+      comment:
+        content: コメントの内容  
     errors:
       messages:
         wrong: が違います
         empty: を入力してください
-  
