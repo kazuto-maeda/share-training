@@ -1,12 +1,13 @@
 <div class = "mb-4">
   <nav class = "navbar navbar-expand-sm navbar-light bg-light">
-    <a class = "navbar-brand" href = "/">Share Training</a>
+    <%= link_to("Share-Training", tweets_path, class: "navbar-brand")%>
     <button type = "button" class = "navbar-toggler" data-toggle = "collapse" data-target = "#share-training-main-menu">
       <span class = "navbar-toggler-icon"></span>
     </button>
     <div class = "collapse navbar-collapse justify-content-end" id = "share-training-main-menu">
       <ul class = "navbar-nav">
         <% if logged_in? %>
+          <li class = "nav-item"><%= link_to("投稿一覧", tweets_path, class: "nav-link")%></li>
           <li class = "nav-item"><%= link_to("新規投稿", new_tweet_path, class: "nav-link")%></li>
           <li class = "nav-item">
             <a href = "/alerts" class = "nav-link">通知一覧
