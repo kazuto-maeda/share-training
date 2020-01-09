@@ -13,14 +13,14 @@
               <%= link_to("詳細", tweet,class: "mr-o")%>
             </div>
           </div>
-          <% if tweet.trainings.where.not(menu: [nil, ""]).any? %>
+          <% if tweet.trainings.any? %>
             <% training = tweet.trainings.first %>
             <div class = "tweet-training border-top mt-3 pt-3">
               <%= training.menu %>
               <%= training.weight %>kg
               <%= training.count %>回
               <%= training.set %>セット
-              <% if tweet.trainings.where.not(menu: [nil, ""]).count >= 2 %>
+              <% if tweet.trainings.count >= 2 %>
                 <p>...</p>
               <% end %>
             </div>

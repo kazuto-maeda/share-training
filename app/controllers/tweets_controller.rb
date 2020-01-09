@@ -6,24 +6,22 @@ class TweetsController < ApplicationController
 
   def followings
     @tweets = current_user.feed_tweets.order(id: :desc).page(params[:page]).per(6)
-  end 
-  
+  end
+
   def index
     @tweets = Tweet.order(id: :desc).page(params[:page]).per(6)
-  end 
-  
+  end
+
   def show
     @user = @tweet.user
-    @trainings = @tweet.trainings.where.not(menu: [nil,""])
     @comment = current_user.comments.build
-    @comments = @tweet.comments.order(id: :desc)
-  end 
-  
+  end
+
   def new
     @tweet = current_user.tweets.build
     @menu = @tweet.trainings.build
-  end 
-  
+  end
+
   def create
     @tweet = current_user.tweets.build(tweet_params)
     if @tweet.save
@@ -32,13 +30,14 @@ class TweetsController < ApplicationController
     else
       flash[:danger] = "投稿の作成に失敗しました"
       render(:new)
-    end 
-    
-  end 
-  
+    end
+
+  end
+
   def edit
-  end 
-  
+    @menu = @tweet.trainings.build
+  end
+
   def update
     if @tweet.update(tweet_params)
       flash[:success] = "投稿を編集しました"
@@ -47,24 +46,24 @@ class TweetsController < ApplicationController
       flash[:danger] = "投稿の編集に失敗しました"
       render(:edit)
     end
-  end 
-  
+  end
+
   def destroy
     @tweet.destroy
     flash[:success] = "投稿を削除しました"
     redirect_to(tweets_path)
-  end 
-  
+  end
+
   private
-  
+
   def tweet_params
     params.require(:tweet).permit(:content, :image, trainings_attributes: [:id, :menu, :weight, :count, :set, :_destroy])
-  end 
-  
+  end
+
   def set_tweet
     @tweet = Tweet.find(params[:id])
   end
-  
+
   def correct_user_to_tweet
     if current_user != @tweet.user
       flash[:danger] = "権限がありません"
