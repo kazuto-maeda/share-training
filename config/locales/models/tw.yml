@@ -1,7 +1,0 @@
-ja:
-  activerecord:
-    models:
-      tweet: ユーザー
-    attributes:
-      tweet:
-        content: 今日のトレーニングの感想
