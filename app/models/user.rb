@@ -4,10 +4,23 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
                     uniqueness: { case_sensitive: false }
-  mount_uploader :image, UserImageUploader
   attr_accessor :current_password
   validates :password, presence: { if: :current_password }
   has_secure_password
+
+  has_one_attached :profile_picture
+  attribute :new_profile_picture
+  attribute :remove_profile_picture, :boolean
+
+  before_save do
+    if new_profile_picture
+      self.profile_picture = new_profile_picture
+    elsif remove_profile_picture
+      self.profile_picture.purge
+    end
+  end
+
+
 
   has_many :tweets, dependent: :destroy
 

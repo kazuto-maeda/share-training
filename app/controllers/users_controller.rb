@@ -100,7 +100,7 @@ class UsersController < ApplicationController
  end
 
  def profile_params
-   params.require(:user).permit(:image, :profile, :training_years, :age, :weight, :sex)
+   params.require(:user).permit(:new_profile_picture, :remove_profile_picture, :profile, :training_years, :age, :weight, :sex)
  end
 
  def set_user

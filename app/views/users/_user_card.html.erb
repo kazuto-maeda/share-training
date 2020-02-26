@@ -2,9 +2,8 @@
   <div class = "card-header">
     <div class = "row">
       <div class = "col-sm-3">
-        <%= image_tag user.image.show_user.url, class: "rounded-circle" if user.image? %><br>
-        <% if current_user == user && user.image.present?  %>
-          <%= link_to("プロフィール画像の削除", destroy_image_user_path, method: :delete)%><br>
+        <% if current_user == user && user.profile_picture.attached?  %>
+          <%= image_tag user.profile_picture.variant(resize: "50x50") %><br>
         <% end %>
         <%= user.name %><br>
       </div>
